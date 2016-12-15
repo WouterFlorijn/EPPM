@@ -1,4 +1,4 @@
-/* This file is part of the EPPM source code package. 
+/* This file is part of the EPPM source code package.
  *
  * Copyright (c) 2013-2016 Linchao Bao (linchaobao@gmail.com)
  *
@@ -23,7 +23,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
- 
+
 #include "bao_basic.h"
 #include "bao_flow_patchmatch_multiscale_cuda.h"
 #include "bao_flow_tools.h"
@@ -32,50 +32,67 @@
 
 using namespace std;
 
-
-int main(int argc,char*argv[])
+char* str_to_c(string & s)
 {
-  int h = 480;
-  int w = 640;
-	
-  //alloc memory
-  unsigned char***img1=bao_alloc<unsigned char>(h,w,3);
-  unsigned char***img2=bao_alloc<unsigned char>(h,w,3);
-  float**disp1_x=bao_alloc<float>(h,w);
-  float**disp1_y=bao_alloc<float>(h,w);
-  float**disp2_x=bao_alloc<float>(h,w);
-  float**disp2_y=bao_alloc<float>(h,w);
-  memset(&(disp1_x[0][0]),0,sizeof(float)*h*w);
-  memset(&(disp1_y[0][0]),0,sizeof(float)*h*w);
-  memset(&(disp2_x[0][0]),0,sizeof(float)*h*w);
-  memset(&(disp2_y[0][0]),0,sizeof(float)*h*w);
+	char * c = new char[s.size() + 1];
+	std::copy(s.begin(), s.end(), c);
+	c[s.size()] = '\0';
+	return c;
+}
 
-  //read images 
-  cout << "loading image ... " << endl;
-  int nchannels = 0;
-  bao_loadimage_ppm("frame10.ppm",img1[0][0],h,w,&nchannels);//load image
-  bao_loadimage_ppm("frame11.ppm",img2[0][0],h,w,&nchannels);//load image
+int main(int argc, char*argv[])
+{
+	int h = 1080;
+	int w = 1920;
 
-  cout << "Processing (image size " << w << " * " << h << " * " << nchannels << ")...\n";
-  bao_timer_gpu_cpu timer; 
-  bao_flow_patchmatch_multiscale_cuda  eppm;
-  
-  timer.start();
-  eppm.init(img1,img2,h,w);
-  eppm.compute_flow(disp1_x,disp1_y);
-  timer.time_display("GPU");
-  
-  cout << "Saving flo file..." << h << "*" << w << endl;
-  bao_save_flo_file("flow.flo",disp1_x,disp1_y,h,w);
+	//alloc memory
+	unsigned char***img1 = bao_alloc<unsigned char>(h, w, 3);
+	unsigned char***img2 = bao_alloc<unsigned char>(h, w, 3);
+	float**disp1_x = bao_alloc<float>(h, w);
+	float**disp1_y = bao_alloc<float>(h, w);
+	float**disp2_x = bao_alloc<float>(h, w);
+	float**disp2_y = bao_alloc<float>(h, w);
+	memset(&(disp1_x[0][0]), 0, sizeof(float)*h*w);
+	memset(&(disp1_y[0][0]), 0, sizeof(float)*h*w);
+	memset(&(disp2_x[0][0]), 0, sizeof(float)*h*w);
+	memset(&(disp2_y[0][0]), 0, sizeof(float)*h*w);
 
-  bao_free(img1);
-  bao_free(img2);
-  bao_free(disp1_x);
-  bao_free(disp1_y);
-  bao_free(disp2_x);
-  bao_free(disp2_y);
+	string path = R"(C:\Users\woute\Documents\Thesis\Data\OF\)";
 
-    return 0;
+	for (int i = 8; i < 12; i++)
+	{
+		cout << "Loading image..." << endl;
+
+		string file1 = path + "Frames\\frame" + to_string(i) + ".ppm";
+		string file2 = path + "Frames\\frame" + to_string(i + 1) + ".ppm";
+
+		int nchannels = 0;
+		bao_loadimage_ppm(str_to_c(file1), img1[0][0], h, w, &nchannels);
+		bao_loadimage_ppm(str_to_c(file2), img2[0][0], h, w, &nchannels);
+
+		cout << "Processing " << i << " (image size " << w << " * " << h << " * " << nchannels << ")...\n";
+		bao_timer_gpu_cpu timer;
+		bao_flow_patchmatch_multiscale_cuda eppm;
+
+		timer.start();
+		eppm.init(img1, img2, h, w);
+		eppm.compute_flow(disp1_x, disp1_y);
+		timer.time_display("GPU");
+
+		cout << "Saving flo file..." << h << "*" << w << endl;
+
+		string floFile = path + "Flow\\flow" + to_string(i) + ".flo";
+		bao_save_flo_file(floFile.c_str(), disp1_x, disp1_y, h, w);
+	}
+
+	bao_free(img1);
+	bao_free(img2);
+	bao_free(disp1_x);
+	bao_free(disp1_y);
+	bao_free(disp2_x);
+	bao_free(disp2_y);
+
+	return 0;
 }
 
 
