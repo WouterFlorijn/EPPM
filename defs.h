@@ -49,7 +49,7 @@
 
 // PatchMatch.
 // Patch radius.
-#define PATCH_R   9
+#define PATCH_R   7
 // Number of iterations (iteration = propagate + random search).
 #define NUM_ITER  10
 
@@ -76,7 +76,7 @@
 
 
 //outlier removal
-#define  STAT_RADIUS  6 
+#define  STAT_RADIUS  12
 
 
 //subpixel

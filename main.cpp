@@ -81,7 +81,7 @@ int main(int argc, char*argv[])
 
 		cout << "Saving flo file..." << h << "*" << w << endl;
 
-		string floFile = path + "Flow\\flow_it1_" + to_string(i) + ".flo";
+		string floFile = path + "Flow\\flow_r7_m12_" + to_string(i) + ".flo";
 		bao_save_flo_file(floFile.c_str(), disp1_x, disp1_y, h, w);
 	}
 
