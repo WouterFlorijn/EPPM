@@ -42,8 +42,8 @@ char* str_to_c(string & s)
 
 int main(int argc, char*argv[])
 {
-	int h = 1080;
-	int w = 1920;
+	int h = 1080 / 2;//
+	int w = 1920 / 2;//
 
 	//alloc memory
 	unsigned char***img1 = bao_alloc<unsigned char>(h, w, 3);
@@ -59,7 +59,7 @@ int main(int argc, char*argv[])
 
 	string path = R"(C:\Users\woute\Documents\Thesis\Data\OF\)";
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 32; i++)
 	{
 		cout << "Loading image..." << endl;
 
@@ -81,7 +81,7 @@ int main(int argc, char*argv[])
 
 		cout << "Saving flo file..." << h << "*" << w << endl;
 
-		string floFile = path + "Flow\\flow_r7_m12_" + to_string(i) + ".flo";
+		string floFile = path + "Flow\\flow" + to_string(i) + ".flo";
 		bao_save_flo_file(floFile.c_str(), disp1_x, disp1_y, h, w);
 	}
 
