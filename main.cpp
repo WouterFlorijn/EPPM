@@ -57,14 +57,26 @@ int main(int argc, char*argv[])
 	memset(&(disp2_x[0][0]), 0, sizeof(float)*h*w);
 	memset(&(disp2_y[0][0]), 0, sizeof(float)*h*w);
 
-	string path = R"(C:\Users\woute\Documents\Thesis\Data\OF\)";
+	string baseDir = R"(G:\ProRail\Assen-Zwolle\)";
+	string path = baseDir + R"(frames\)";
+	int maxFrames = 10;
+	cout << "..." << endl;
+	system("pause");
 
-	for (int i = 0; i < 32; i++)
+	for (int i = 1; i < maxFrames; i++)
 	{
 		cout << "Loading image..." << endl;
+		
+		// Padding.
+		std::string si1 = to_string(i);
+		std::string si2 = to_string(i + 1);
+		std::string padding1(8 - si1.size(), '0');
+		std::string padding2(8 - si2.size(), '0');
+		si1 = padding1 + si1;
+		si2 = padding2 + si2;
 
-		string file1 = path + "Frames\\frame" + to_string(i) + ".ppm";
-		string file2 = path + "Frames\\frame" + to_string(i + 1) + ".ppm";
+		string file1 = path + si1 + ".ppm";
+		string file2 = path + si2 + ".ppm";
 
 		int nchannels = 0;
 		bao_loadimage_ppm(str_to_c(file1), img1[0][0], h, w, &nchannels);
@@ -81,7 +93,7 @@ int main(int argc, char*argv[])
 
 		cout << "Saving flo file..." << h << "*" << w << endl;
 
-		string floFile = path + "Flow\\flow" + to_string(i) + ".flo";
+		string floFile = baseDir + R"(flow\)" + si1 + ".flo";
 		bao_save_flo_file(floFile.c_str(), disp1_x, disp1_y, h, w);
 	}
 

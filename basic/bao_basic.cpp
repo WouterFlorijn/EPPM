@@ -144,6 +144,7 @@ int bao_loadimage_ppm(char* filename,unsigned char *image,int h,int w,int *nr_ch
 	if(!file_in)
 	{
 		printf("Please check input filename: %s\n",filename);
+		system("pause");
 		exit(0);
 	}
 	if(fgetc(file_in)=='P') 
