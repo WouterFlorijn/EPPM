@@ -60,8 +60,6 @@ int main(int argc, char*argv[])
 	string baseDir = R"(G:\ProRail\Assen-Zwolle\)";
 	string path = baseDir + R"(frames\)";
 	int maxFrames = 10;
-	cout << "..." << endl;
-	system("pause");
 
 	for (int i = 1; i < maxFrames; i++)
 	{
