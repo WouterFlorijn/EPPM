@@ -59,40 +59,47 @@ int main(int argc, char*argv[])
 
 	string baseDir = R"(G:\ProRail\Assen-Zwolle\)";
 	string path = baseDir + R"(frames\)";
-	int maxFrames = 10;
+	int maxFrames = 4;
+	int nextFrames = 4;
 
 	for (int i = 1; i < maxFrames; i++)
 	{
 		cout << "Loading image..." << endl;
-		
-		// Padding.
-		std::string si1 = to_string(i);
-		std::string si2 = to_string(i + 1);
-		std::string padding1(8 - si1.size(), '0');
-		std::string padding2(8 - si2.size(), '0');
-		si1 = padding1 + si1;
-		si2 = padding2 + si2;
-
-		string file1 = path + si1 + ".ppm";
-		string file2 = path + si2 + ".ppm";
 
 		int nchannels = 0;
+		
+		// Load image 1.
+		std::string si1 = to_string(i);
+		std::string padding1(8 - si1.size(), '0');
+		si1 = padding1 + si1;
+		string file1 = path + si1 + ".ppm";
 		bao_loadimage_ppm(str_to_c(file1), img1[0][0], h, w, &nchannels);
-		bao_loadimage_ppm(str_to_c(file2), img2[0][0], h, w, &nchannels);
 
-		cout << "Processing " << i << " (image size " << w << " * " << h << " * " << nchannels << ")...\n";
-		bao_timer_gpu_cpu timer;
-		bao_flow_patchmatch_multiscale_cuda eppm;
+		for (int j = 1; j < nextFrames; j++)
+		{
+			std::string si2 = to_string(i + j);
+			std::string padding2(8 - si2.size(), '0');
+			si2 = padding2 + si2;
+			string file2 = path + si2 + ".ppm";
 
-		timer.start();
-		eppm.init(img1, img2, h, w);
-		eppm.compute_flow(disp1_x, disp1_y);
-		timer.time_display("GPU");
+			// Load image.
+			bao_loadimage_ppm(str_to_c(file2), img2[0][0], h, w, &nchannels);
 
-		cout << "Saving flo file..." << h << "*" << w << endl;
+			cout << "Processing " << i << " - " << j << " (image size " << w << " * " << h << " * " << nchannels << ")...\n";
+			bao_timer_gpu_cpu timer;
+			bao_flow_patchmatch_multiscale_cuda eppm;
 
-		string floFile = baseDir + R"(flow\)" + si1 + ".flo";
-		bao_save_flo_file(floFile.c_str(), disp1_x, disp1_y, h, w);
+			// Compute optical flow.
+			timer.start();
+			eppm.init(img1, img2, h, w);
+			eppm.compute_flow(disp1_x, disp1_y);
+			timer.time_display("GPU");
+
+			cout << "Saving flo file..." << h << "*" << w << endl;
+
+			string floFile = baseDir + R"(flow\)" + si1 + "-" + si2 + ".flo";
+			bao_save_flo_file(floFile.c_str(), disp1_x, disp1_y, h, w);
+		}
 	}
 
 	bao_free(img1);
