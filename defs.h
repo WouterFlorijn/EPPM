@@ -72,7 +72,7 @@
 
 
 //post blf
-#define POSTPROC_BLF_SIG_S       5 
+#define POSTPROC_BLF_SIG_S       9
 
 
 //outlier removal
