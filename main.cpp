@@ -42,8 +42,8 @@ char* str_to_c(string & s)
 
 int main(int argc, char*argv[])
 {
-	int h = 1080 / 2;//
-	int w = 1920 / 2;//
+	int h = 1080; // #PARAM
+	int w = 1920; // #PARAM
 
 	//alloc memory
 	unsigned char***img1 = bao_alloc<unsigned char>(h, w, 3);
@@ -60,9 +60,9 @@ int main(int argc, char*argv[])
 	string baseDir = R"(G:\ProRail\Assen-Zwolle\)";
 	string path = baseDir + R"(frames\)";
 	int maxFrames = 4;
-	int nextFrames = 4;
+	int nextFrames = 2;
 
-	for (int i = 1; i < maxFrames; i++)
+	for (int i = 1; i <= maxFrames; i++)
 	{
 		cout << "Loading image..." << endl;
 
@@ -75,7 +75,7 @@ int main(int argc, char*argv[])
 		string file1 = path + si1 + ".ppm";
 		bao_loadimage_ppm(str_to_c(file1), img1[0][0], h, w, &nchannels);
 
-		for (int j = 1; j < nextFrames; j++)
+		for (int j = 1; j <= nextFrames; j++)
 		{
 			std::string si2 = to_string(i + j);
 			std::string padding2(8 - si2.size(), '0');
@@ -85,7 +85,7 @@ int main(int argc, char*argv[])
 			// Load image.
 			bao_loadimage_ppm(str_to_c(file2), img2[0][0], h, w, &nchannels);
 
-			cout << "Processing " << i << " - " << j << " (image size " << w << " * " << h << " * " << nchannels << ")...\n";
+			cout << "Processing " << i << " - " << (i + j) << " (image size " << w << " * " << h << " * " << nchannels << ")...\n";
 			bao_timer_gpu_cpu timer;
 			bao_flow_patchmatch_multiscale_cuda eppm;
 
