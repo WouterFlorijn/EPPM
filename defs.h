@@ -54,15 +54,15 @@
 #define NUM_ITER  10
 
 // Sigma S parameter.
-#define PM_SIG_S  (0.5f*PATCH_R)
+#define PM_SIG_S  (0.75f*PATCH_R)
 // Sigma R parameter.
-#define PM_SIG_R  0.1f
+#define PM_SIG_R  2.5f
 
 
-#define LAMBDA_AD             0.1f  
-#define LAMBDA_CENSUS         0.3f  
+#define LAMBDA_AD             0.1f
+#define LAMBDA_CENSUS         0.3f
 
-#define MAX_FLOW_VAL          200  
+#define MAX_FLOW_VAL          200
 
 
 //parameters for refinement
@@ -72,7 +72,7 @@
 
 
 //post blf
-#define POSTPROC_BLF_SIG_S       9
+#define POSTPROC_BLF_SIG_S       24
 
 
 //outlier removal
