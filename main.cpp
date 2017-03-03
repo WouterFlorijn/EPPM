@@ -59,10 +59,11 @@ int main(int argc, char*argv[])
 
 	string baseDir = R"(G:\ProRail\Assen-Zwolle\)";
 	string path = baseDir + R"(frames\)";
-	int maxFrames = 4;
+	int startFrame = 1;
+	int endFrame = 8;
 	int nextFrames = 1;
 
-	for (int i = 1; i <= maxFrames; i++)
+	for (int i = startFrame; i <= endFrame; i++)
 	{
 		cout << "Loading image..." << endl;
 

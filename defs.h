@@ -29,8 +29,8 @@
 
 
 // Maximum number of pyramid layers.
-#define PYR_MAX_DEPTH    3
-// ?
+#define PYR_MAX_DEPTH    2
+// Minimum layer width.
 #define PYR_MIN_WIDTH    20
 // Pyramid layer scaling ratio.
 #define PYR_RATIO        0.5f
