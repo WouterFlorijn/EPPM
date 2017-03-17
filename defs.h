@@ -38,11 +38,11 @@
 #define PYR_RATIO_UP     (1.f/PYR_RATIO)
 
 // Maximum search range for random search.
-#define  SEARCH_RANGE      30
+#define  SEARCH_RANGE      128
 // Minimum search range for random search.
 #define  SEARCH_RADIUS_MIN 1
 // Maximum number of random search guesses.
-#define  NUM_RAND_GUESS    6
+#define  NUM_RAND_GUESS    8
 
 #define  PM_SCALE_RANGE    9
 #define  PM_SCALE_MIN      4
@@ -51,7 +51,7 @@
 // Patch radius.
 #define PATCH_R   7
 // Number of iterations (iteration = propagate + random search).
-#define NUM_ITER  10
+#define NUM_ITER  12
 
 // Sigma S parameter.
 #define PM_SIG_S  (0.75f*PATCH_R)
@@ -76,13 +76,13 @@
 
 
 //outlier removal
-#define  STAT_RADIUS  12
+#define  STAT_RADIUS  24
 
 
 //subpixel
 #define SUBPIX_UP_FACTOR        2.f
 #define SUBPIX_UP_FACTOR_INV    (1.f/SUBPIX_UP_FACTOR)
-#define SUBPIX_PATCH_R          9   //30
+#define SUBPIX_PATCH_R          9
 #define SUBPIX_SIG_S            (1.0f*SUBPIX_PATCH_R) //30.0
 #define SUBPIX_SIG_R            0.2f  //0.1
 

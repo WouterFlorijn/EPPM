@@ -59,13 +59,13 @@ int main(int argc, char*argv[])
 
 	string baseDir = R"(G:\ProRail\Assen-Zwolle\)";
 	string path = baseDir + R"(frames\)";
-	int startFrame = 1;
-	int endFrame = 8;
-	int nextFrames = 1;
+	int startFrame = 26;
+	int endFrame = 28;
+	int nextFrames = 2;
 
 	for (int i = startFrame; i <= endFrame; i++)
 	{
-		cout << "Loading image..." << endl;
+		cout << "Loading image." << endl;
 
 		int nchannels = 0;
 		
@@ -86,7 +86,7 @@ int main(int argc, char*argv[])
 			// Load image.
 			bao_loadimage_ppm(str_to_c(file2), img2[0][0], h, w, &nchannels);
 
-			cout << "Processing " << i << " - " << (i + j) << " (image size " << w << " * " << h << " * " << nchannels << ")...\n";
+			cout << "Processing " << i << " - " << (i + j) << " (" << w << "x" << h << "x" << nchannels << ").\n";
 			bao_timer_gpu_cpu timer;
 			bao_flow_patchmatch_multiscale_cuda eppm;
 
@@ -96,7 +96,7 @@ int main(int argc, char*argv[])
 			eppm.compute_flow(disp1_x, disp1_y);
 			timer.time_display("GPU");
 
-			cout << "Saving flo file..." << h << "*" << w << endl;
+			cout << "Saving flo file." << endl;
 
 			string floFile = baseDir + R"(flow\)" + si1 + "-" + si2 + ".flo";
 			bao_save_flo_file(floFile.c_str(), disp1_x, disp1_y, h, w);
