@@ -29,7 +29,7 @@
 
 
 // Maximum number of pyramid layers.
-#define PYR_MAX_DEPTH    2
+#define PYR_MAX_DEPTH    3
 // Minimum layer width.
 #define PYR_MIN_WIDTH    20
 // Pyramid layer scaling ratio.
@@ -44,8 +44,8 @@
 // Maximum number of random search guesses.
 #define  NUM_RAND_GUESS    8
 
-#define  PM_SCALE_RANGE    9
 #define  PM_SCALE_MIN      4
+#define  PM_SCALE_RANGE    PM_SCALE_MIN*2+1
 
 // PatchMatch.
 // Patch radius.
@@ -72,11 +72,11 @@
 
 
 //post blf
-#define POSTPROC_BLF_SIG_S       24
+#define POSTPROC_BLF_SIG_S 24
 
 
 //outlier removal
-#define  STAT_RADIUS  24
+#define STAT_RADIUS 24
 
 
 //subpixel

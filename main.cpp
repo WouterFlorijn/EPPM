@@ -59,9 +59,9 @@ int main(int argc, char*argv[])
 
 	string baseDir = R"(G:\ProRail\Assen-Zwolle\)";
 	string path = baseDir + R"(frames\)";
-	int startFrame = 26;
-	int endFrame = 28;
-	int nextFrames = 2;
+	int startFrame = 38;
+	int endFrame = 40;
+	int nextFrames = 1;
 
 	for (int i = startFrame; i <= endFrame; i++)
 	{
