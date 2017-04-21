@@ -57,10 +57,10 @@ int main(int argc, char*argv[])
 	memset(&(disp2_x[0][0]), 0, sizeof(float)*h*w);
 	memset(&(disp2_y[0][0]), 0, sizeof(float)*h*w);
 
-	string baseDir = R"(G:\ProRail\Assen-Zwolle\)";
+	string baseDir = R"(G:\ProRail\Holten\)";
 	string path = baseDir + R"(frames\)";
-	int startFrame = 38;
-	int endFrame = 40;
+	int startFrame = 1398;
+	int endFrame = 1600;
 	int nextFrames = 1;
 
 	for (int i = startFrame; i <= endFrame; i++)
