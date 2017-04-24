@@ -57,10 +57,10 @@ int main(int argc, char*argv[])
 	memset(&(disp2_x[0][0]), 0, sizeof(float)*h*w);
 	memset(&(disp2_y[0][0]), 0, sizeof(float)*h*w);
 
-	string baseDir = R"(G:\ProRail\Holten\)";
+	string baseDir = R"(C:\Users\woute\Documents\Hackathon\)";
 	string path = baseDir + R"(frames\)";
-	int startFrame = 1398;
-	int endFrame = 1600;
+	int startFrame = 1;
+	int endFrame = 520;
 	int nextFrames = 1;
 
 	for (int i = startFrame; i <= endFrame; i++)
@@ -71,17 +71,17 @@ int main(int argc, char*argv[])
 		
 		// Load image 1.
 		std::string si1 = to_string(i);
-		std::string padding1(8 - si1.size(), '0');
+		std::string padding1(6 - si1.size(), '0');
 		si1 = padding1 + si1;
-		string file1 = path + si1 + ".ppm";
+		string file1 = path + "img_" + si1 + ".ppm";
 		bao_loadimage_ppm(str_to_c(file1), img1[0][0], h, w, &nchannels);
 
 		for (int j = 1; j <= nextFrames; j++)
 		{
 			std::string si2 = to_string(i + j);
-			std::string padding2(8 - si2.size(), '0');
+			std::string padding2(6 - si2.size(), '0');
 			si2 = padding2 + si2;
-			string file2 = path + si2 + ".ppm";
+			string file2 = path + "img_" + si2 + ".ppm";
 
 			// Load image.
 			bao_loadimage_ppm(str_to_c(file2), img2[0][0], h, w, &nchannels);

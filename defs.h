@@ -29,7 +29,7 @@
 
 
 // Maximum number of pyramid layers.
-#define PYR_MAX_DEPTH    3
+#define PYR_MAX_DEPTH    2
 // Minimum layer width.
 #define PYR_MIN_WIDTH    20
 // Pyramid layer scaling ratio.
@@ -38,9 +38,9 @@
 #define PYR_RATIO_UP     (1.f/PYR_RATIO)
 
 // Maximum search range for random search.
-#define  SEARCH_RANGE      128
+#define  SEARCH_RANGE      16
 // Minimum search range for random search.
-#define  SEARCH_RADIUS_MIN 1
+#define  SEARCH_RADIUS_MIN 0
 // Maximum number of random search guesses.
 #define  NUM_RAND_GUESS    8
 
@@ -49,14 +49,14 @@
 
 // PatchMatch.
 // Patch radius.
-#define PATCH_R   7
+#define PATCH_R   3
 // Number of iterations (iteration = propagate + random search).
 #define NUM_ITER  12
 
 // Sigma S parameter.
 #define PM_SIG_S  (0.75f*PATCH_R)
 // Sigma R parameter.
-#define PM_SIG_R  2.5f
+#define PM_SIG_R  1.5f
 
 
 #define LAMBDA_AD             0.1f
@@ -72,11 +72,11 @@
 
 
 //post blf
-#define POSTPROC_BLF_SIG_S 24
+#define POSTPROC_BLF_SIG_S 16
 
 
 //outlier removal
-#define STAT_RADIUS 24
+#define STAT_RADIUS 16
 
 
 //subpixel
