@@ -49,7 +49,7 @@
 
 // PatchMatch.
 // Patch radius.
-#define PATCH_R   7
+#define PATCH_R   5
 // Number of iterations (iteration = propagate + random search).
 #define NUM_ITER  12
 
@@ -72,7 +72,7 @@
 
 
 //post blf
-#define POSTPROC_BLF_SIG_S 24
+#define POSTPROC_BLF_SIG_S 5
 
 
 //outlier removal

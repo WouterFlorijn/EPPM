@@ -59,9 +59,11 @@ int main(int argc, char*argv[])
 
 	string baseDir = R"(G:\ProRail\Holten\)";
 	string path = baseDir + R"(frames\)";
-	int startFrame = 1398;
-	int endFrame = 1600;
+	int startFrame = 3498;
+	int endFrame = 3528;
 	int nextFrames = 1;
+
+	double totalTime = 0.0;
 
 	for (int i = startFrame; i <= endFrame; i++)
 	{
@@ -94,7 +96,7 @@ int main(int argc, char*argv[])
 			timer.start();
 			eppm.init(img1, img2, h, w);
 			eppm.compute_flow(disp1_x, disp1_y);
-			timer.time_display("GPU");
+			totalTime += timer.time_display("GPU");
 
 			cout << "Saving flo file." << endl;
 
@@ -102,6 +104,9 @@ int main(int argc, char*argv[])
 			bao_save_flo_file(floFile.c_str(), disp1_x, disp1_y, h, w);
 		}
 	}
+
+	cout << "Total time: " << totalTime << endl;
+	system("pause");
 
 	bao_free(img1);
 	bao_free(img2);
